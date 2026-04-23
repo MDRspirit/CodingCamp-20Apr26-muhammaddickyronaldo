@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Dashboard</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary: #6b65e3;
+      --primary-hover: #5a54d1;
+      --bg-start: #736add;
+      --bg-end: #4c388b;
+      --text-main: #1f2937;
+      --text-muted: #6b7280;
+      --danger: #dd696a;
+      --danger-hover: #c95d5e;
+      --btn-gray: #e2e4e9;
+      --btn-gray-hover: #d1d5db;
+      --border-color: #d1d5db;
+      --card-bg: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, var(--bg-start), var(--bg-end));
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      color: var(--text-main);
+    }
+
+    .container {
+      max-width: 1024px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header card */
+    .header-card {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    #greeting-time {
+      font-size: 3.75rem;
+      color: var(--primary);
+      font-weight: 300;
+      letter-spacing: 0.025em;
+      margin-bottom: 0.5rem;
+    }
+
+    #greeting-date {
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    #greeting-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+
+    /* Name form */
+    #greeting-name-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+
+    /* Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .left-col { display: flex; flex-direction: column; gap: 1.5rem; }
+    .right-col { height: 100%; min-height: 400px; }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Timer */
+    .timer-card { align-items: center; }
+    .timer-card .card-title { align-self: flex-start; margin-bottom: 1.5rem; }
+
+    #timer-display {
+      font-size: 3.75rem;
+      color: var(--primary);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .timer-controls { display: flex; gap: 0.75rem; margin-bottom: 1rem; }
+
+    .timer-duration {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .timer-duration input {
+      width: 60px;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      outline: none;
+    }
+
+    .timer-duration input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(107,101,227,0.2);
+    }
+
+    #timer-notification {
+      margin-top: 0.75rem;
+      padding: 0.5rem 1rem;
+      background-color: #10b981;
+      color: white;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      font-family: inherit;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary { background-color: var(--primary); color: white; }
+    .btn-primary:hover { background-color: var(--primary-hover); }
+    .btn-secondary { background-color: var(--btn-gray); color: var(--text-main); }
+    .btn-secondary:hover { background-color: var(--btn-gray-hover); }
+    .btn-danger { background-color: var(--danger); color: white; padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+    .btn-danger:hover { background-color: var(--danger-hover); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* Inputs */
+    .input-group { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+
+    .input-field {
+      flex: 1;
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+      font-size: 0.875rem;
+    }
+    .input-field:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(107,101,227,0.2);
+    }
+    .input-field.input-primary { border-color: var(--primary); }
+
+    /* Error */
+    .error-msg {
+      font-size: 0.8rem;
+      color: var(--danger);
+      min-height: 1.2em;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Sort */
+    .sort-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .sort-row select {
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      outline: none;
+    }
+    .sort-row select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(107,101,227,0.2);
+    }
+
+    /* Tasks */
+    #todo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      list-style: none;
+    }
+
+    /* Quick Links */
+    #links-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .grid-container { grid-template-columns: 1fr; }
+      body { padding: 1rem; }
+      #greeting-time { font-size: 3rem; }
+      .timer-card .card-title { align-self: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Bagian Atas: Jam, Tanggal, Greeting -->
+    <div class="card header-card" id="greeting-widget" aria-label="Greeting">
+      <div id="greeting-time">--:--</div>
+      <div id="greeting-date">Memuat tanggal...</div>
+      <div id="greeting-text">Selamat Pagi</div>
+      <form id="greeting-name-form">
+        <input type="text" id="greeting-name-input" placeholder="Enter your name" class="input-field" aria-label="Your name" />
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+
+    <!-- Bagian Bawah: Grid Konten -->
+    <div class="grid-container">
+
+      <!-- Kolom Kiri: Timer dan Tautan -->
+      <div class="left-col">
+
+        <!-- Card: Timer Fokus -->
+        <div class="card timer-card" id="timer-widget" aria-label="Focus Timer">
+          <h3 class="card-title">Focus Timer</h3>
+          <div id="timer-display" class="timer-display" aria-live="polite">25:00</div>
+          <div class="timer-controls">
+            <button id="timer-start" class="btn btn-primary">Start</button>
+            <button id="timer-stop" class="btn btn-secondary" disabled>Stop</button>
+            <button id="timer-reset" class="btn btn-secondary">Reset</button>
+          </div>
+          <div class="timer-duration">
+            <label for="timer-duration-input">Duration (min):</label>
+            <input type="number" id="timer-duration-input" min="1" max="90" value="25" aria-label="Timer duration in minutes" />
+          </div>
+          <div id="timer-notification" aria-live="assertive" hidden></div>
+        </div>
+
+        <!-- Card: Tautan Cepat -->
+        <div class="card" id="links-widget" aria-label="Quick Links">
+          <h3 class="card-title">Quick Links</h3>
+          <form id="links-add-form">
+            <div class="input-group">
+              <input type="text" id="links-label-input" placeholder="Link name" class="input-field" style="max-width:150px" aria-label="Link label" />
+              <input type="url" id="links-url-input" placeholder="https://..." class="input-field" aria-label="Link URL" />
+              <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+          </form>
+          <div id="links-error" class="error-msg" role="alert" aria-live="polite"></div>
+          <div id="links-list" aria-label="Quick links"></div>
+        </div>
+
+      </div>
+
+      <!-- Kolom Kanan: Daftar Tugas -->
+      <div class="card right-col" id="todo-widget" aria-label="To-Do List">
+        <h3 class="card-title">Tasks</h3>
+        <form id="todo-add-form">
+          <div class="input-group">
+            <input type="text" id="todo-input" placeholder="Add a new task..." class="input-field input-primary" aria-label="New task label" />
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+        <div id="todo-error" class="error-msg" role="alert" aria-live="polite"></div>
+        <div class="sort-row">
+          <label for="todo-sort-select">Sort:</label>
+          <select id="todo-sort-select" aria-label="Sort tasks">
+            <option value="default">Default</option>
+            <option value="incomplete">Incomplete first</option>
+            <option value="completed">Completed first</option>
+          </select>
+        </div>
+        <ul id="todo-list" class="custom-scrollbar" aria-label="Task list"></ul>
+      </div>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

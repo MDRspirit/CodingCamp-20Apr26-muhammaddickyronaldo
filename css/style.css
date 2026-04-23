@@ -1,0 +1,317 @@
+/* ===== CSS Custom Properties ===== */
+:root {
+  --color-bg: #f5f5f5;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+  --color-border: #dddddd;
+  --color-primary: #4a6fa5;
+  --color-primary-hover: #3a5f95;
+  --color-error: #c0392b;
+  --color-success: #27ae60;
+  --color-completed: #999999;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --radius: 8px;
+  --gap: 1.25rem;
+}
+
+body.theme-dark {
+  --color-bg: #1a1a2e;
+  --color-surface: #16213e;
+  --color-text: #e0e0e0;
+  --color-text-muted: #aaaaaa;
+  --color-border: #333355;
+  --color-primary: #7aa2d4;
+  --color-primary-hover: #8ab2e4;
+  --color-error: #e74c3c;
+  --color-success: #2ecc71;
+  --color-completed: #666688;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== Base Reset ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* ===== Header ===== */
+.dashboard-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem var(--gap);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+}
+
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  transition: background-color 0.15s;
+}
+
+#theme-toggle:hover {
+  background-color: var(--color-border);
+}
+
+/* ===== Dashboard Grid ===== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap);
+  padding: var(--gap);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== Widget ===== */
+.widget {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.widget h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+/* ===== Greeting Widget ===== */
+#greeting-widget {
+  grid-column: 1 / -1;
+}
+
+#greeting-time {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+#greeting-date {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin: 0.25rem 0 0.75rem;
+}
+
+#greeting-text {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+#greeting-name-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ===== Timer Widget ===== */
+#timer-display {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  margin: 0.5rem 0;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.timer-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.timer-duration input {
+  width: 60px;
+}
+
+#timer-notification {
+  margin-top: 0.75rem;
+  padding: 0.5rem;
+  background-color: var(--color-success);
+  color: #fff;
+  border-radius: var(--radius);
+  text-align: center;
+  font-weight: 600;
+}
+
+#timer-notification.flash {
+  animation: flash 0.5s ease-in-out 3;
+}
+
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ===== To-Do Widget ===== */
+#todo-add-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.todo-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+#todo-list {
+  list-style: none;
+}
+
+#todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+#todo-list li:last-child {
+  border-bottom: none;
+}
+
+.task-label {
+  flex: 1;
+  font-size: 0.95rem;
+}
+
+.task-label.completed {
+  text-decoration: line-through;
+  color: var(--color-completed);
+}
+
+#todo-error {
+  font-size: 0.85rem;
+  color: var(--color-error);
+  min-height: 1.2em;
+  margin-bottom: 0.25rem;
+}
+
+/* ===== Quick Links Widget ===== */
+#links-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#links-error {
+  font-size: 0.85rem;
+  color: var(--color-error);
+  min-height: 1.2em;
+  margin-bottom: 0.25rem;
+}
+
+#links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.link-btn {
+  padding: 0.35rem 0.75rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.link-btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* ===== Shared Form Elements ===== */
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 0.95rem;
+  flex: 1;
+  min-width: 0;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+button {
+  padding: 0.4rem 0.85rem;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: background-color 0.15s;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+button.btn-danger {
+  background-color: var(--color-error);
+}
+
+button.btn-secondary {
+  background-color: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+button.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-border);
+}

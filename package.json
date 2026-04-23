@@ -1,0 +1,24 @@
+{
+  "name": "codingcamp-20apr26-muhammaddickyronaldo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node tests/storage.property.test.js && node tests/greeting.property.test.js && node tests/greeting.unit.test.js && node tests/greeting-name.property.test.js && node tests/timer.unit.test.js && node tests/timer.property.test.js && node tests/todo.property.test.js && node tests/todo-edit.property.test.js && node tests/todo-sort.property.test.js && node tests/links.property.test.js && node tests/theme.property.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MDRspirit/CodingCamp-20Apr26-muhammaddickyronaldo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/MDRspirit/CodingCamp-20Apr26-muhammaddickyronaldo/issues"
+  },
+  "homepage": "https://github.com/MDRspirit/CodingCamp-20Apr26-muhammaddickyronaldo#readme",
+  "devDependencies": {
+    "fast-check": "^4.7.0"
+  }
+}
